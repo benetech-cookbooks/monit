@@ -1,0 +1,7 @@
+check process haproxy with pidfile /var/run/haproxy.pid
+group database
+start program = "/etc/init.d/haproxy start"
+stop  program = "/etc/init.d/haproxy stop"
+if failed host localhost port 8000 protocol pgsql then restart
+if failed host localhost port 8000 protocol pgsql then alert
+if 5 restarts within 5 cycles then timeout
