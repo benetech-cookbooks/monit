@@ -1,4 +1,4 @@
-check process pgbouncer with pidfile /var/run/pgbouncer/pgbouncer-bksdb.pid
+check process pgbouncer with pidfile /var/run/pgbouncer/pgbouncer-<%= node['pgbouncer']['db_alias'] %>.pid
 group database
 start program = "/etc/init.d/pgbouncer start"
 stop  program = "/etc/init.d/pgbouncer stop"
