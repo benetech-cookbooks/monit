@@ -1,11 +1,8 @@
 check process ejabberd with pidfile /var/run/ejabberd/ejabberd.pid
-group ejabberd
-start program = "/etc/init.d/ejabberd start"
-stop  program = "/etc/init.d/ejabberd stop"
-if failed host localhost port 5222 type tcp then restart
-if failed host localhost port 5222 type tcp then alert
-if failed host localhost port 5223 type tcp then restart
-if failed host localhost port 5223 type tcp then alert
-if failed host localhost port 5269 type tcp then restart
-if failed host localhost port 5269 type tcp then alert
-if 5 restarts within 5 cycles then timeout
+    group ejabberd
+    start program = "/etc/init.d/ejabberd start" with timeout 120 seconds
+    stop  program = "/etc/init.d/ejabberd stop" with timeout 120 seconds
+    if failed host localhost port 5222 type tcp then restart
+    if failed host localhost port 5223 type tcp then restart
+    if failed host localhost port 5269 type tcp then restart
+    if 10 restarts within 10 cycles then unmonitor

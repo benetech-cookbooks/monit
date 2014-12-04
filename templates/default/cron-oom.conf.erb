@@ -1,0 +1,5 @@
+check file catalina.out with path /var/lib/tomcat-sites/cron/logs/catalina.out
+    start   program = "/etc/init.d/tomcat6-cron start" with timeout 120 seconds
+    stop    program = "/etc/init.d/tomcat6-cron stop"  with timeout 120 seconds
+    if match ".*java\.lang\.OutOfMemoryError.*" then restart
+    if 10 restarts within 10 cycles then unmonitor

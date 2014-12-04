@@ -1,7 +1,5 @@
 check process tomcat6-cron with pidfile /var/run/tomcat6-cron.pid
-start   program = "/etc/init.d/tomcat6-cron start" with timeout 90 seconds
-stop    program = "/etc/init.d/tomcat6-cron stop" with timeout 90 seconds
-if failed host localhost port 8080 then alert
-if failed host localhost port 8080 then restart
-
-if 5 restarts within 5 cycles then timeout
+    start   program = "/etc/init.d/tomcat6-cron start" with timeout 120 seconds
+    stop    program = "/etc/init.d/tomcat6-cron stop" with timeout 120 seconds
+    if failed host localhost port 8080 then restart
+    if 10 restarts within 10 cycles then unmonitor
