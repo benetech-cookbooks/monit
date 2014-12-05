@@ -1,0 +1,5 @@
+check process tomcat6-solr1 with pidfile /var/run/tomcat6-solr1.pid
+    start   program = "/etc/init.d/tomcat6-solr1 start" with timeout 120 seconds
+    stop    program = "/etc/init.d/tomcat6-solr1 stop" with timeout 120 seconds
+    if failed host localhost port 8080 then restart
+    if 10 restarts within 10 cycles then unmonitor
