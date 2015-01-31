@@ -1,0 +1,5 @@
+check file admin-catalina.out with path /var/lib/tomcat-sites/admin/logs/catalina.out
+    start   program = "/etc/init.d/tomcat6-admin start" with timeout 120 seconds
+    stop    program = "/etc/init.d/tomcat6-admin stop"  with timeout 120 seconds
+    if match ".*java\.lang\.OutOfMemoryError.*" then restart
+    if 10 restarts within 10 cycles then unmonitor

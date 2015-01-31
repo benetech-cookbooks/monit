@@ -1,0 +1,5 @@
+check process tomcat6-admin with pidfile /var/run/tomcat6-admin.pid
+    start   program = "/etc/init.d/tomcat6-admin start" with timeout 120 seconds
+    stop    program = "/etc/init.d/tomcat6-admin stop" with timeout 120 seconds
+    if failed host localhost port 8010 then restart
+    if 10 restarts within 10 cycles then unmonitor
