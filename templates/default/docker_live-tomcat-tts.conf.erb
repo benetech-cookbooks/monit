@@ -1,0 +1,9 @@
+check program docker_live-tomcat-tts with path "/usr/bin/docker top live-tomcat-tts"
+    start   program = "docker start live-tomcat-tts" with timeout 120 seconds
+    stop    program = "docker stop live-tomcat-tts" with timeout 120 seconds
+    if status != 0 then restart
+    if failed host localhost port 8080 protocol HTTP
+        request /smoke
+        with timeout 60 seconds
+    then restart
+    if 10 restarts within 10 cycles then unmonitor
