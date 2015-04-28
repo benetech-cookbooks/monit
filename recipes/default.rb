@@ -23,6 +23,11 @@ template "/etc/monit/monitrc" do
   mode 0700
   source 'monitrc.erb'
   notifies :restart, "service[monit]", :delayed
+  variables(
+      lazy {
+        {:fqdn => node['fqdn']}
+      }
+  )
 end
 
 service "monit" do
