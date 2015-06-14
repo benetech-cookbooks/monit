@@ -1,0 +1,5 @@
+check program docker_<%= node.chef_environment %>-pgbouncer_proc with path "/usr/bin/docker top <%= node.chef_environment %>-pgbouncer"
+    start   program = "/usr/bin/docker start <%= node.chef_environment %>-pgbouncer" with timeout 120 seconds
+    stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-pgbouncer" with timeout 120 seconds
+    if status != 0 then restart
+    if 10 restarts within 10 cycles then unmonitor
