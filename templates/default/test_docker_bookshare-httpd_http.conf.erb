@@ -1,0 +1,9 @@
+check host docker_<%= node.chef_environment %>-bookshare-httpd_http with address localhost
+    <% @app_class_webapps.each do |webapp| %>
+      group bookshare-<%= node.chef_environment %>-<%= webapp %>
+      depends on docker_<%= node.chef_environment %>-tomcat-<%= webapp %>_http
+    <% end %>
+    start   program = "/usr/bin/docker start <%= node.environment %>-httpd" with timeout 120 seconds
+    stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-httpd" with timeout 120 seconds
+    if failed host localhost port 80 protocol HTTP request "/robots.txt" with timeout 20 seconds for 2 cycles then restart
+    if 60 restarts within 60 cycles then unmonitor

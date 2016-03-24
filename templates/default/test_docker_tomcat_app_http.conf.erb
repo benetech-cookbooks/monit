@@ -1,0 +1,10 @@
+<% @app_class_webapps.each do |webapp| %>
+    check host docker_<%= node.chef_environment %>-tomcat-<%= webapp %>_http with address localhost
+      group bookshare-<%= node.chef_environment %>-<%= webapp %>
+      depends on docker_<%= node.chef_environment %>-pgbouncer_pgsql
+      depends on docker_<%= node.chef_environment %>-postfix_proc
+      start   program = "/usr/bin/docker start <%= node.environment %>-tomcat-<%= webapp %>" with timeout 120 seconds
+      stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-tomcat-<%= webapp %>" with timeout 120 seconds
+      if failed host localhost port <%= @httpd_config[webapp]['tcp_port'].to_s %> protocol HTTP request "/smoke" with timeout 20 seconds for 3 cycles then restart
+      if 60 restarts within 60 cycles then unmonitor
+<% end %>
