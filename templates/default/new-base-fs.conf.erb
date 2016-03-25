@@ -1,14 +1,14 @@
 check filesystem rootfs with path /
-if space usage > 80% then alert
+if space usage > 80% then unmonitor
 
 check filesystem tmpfs with path /tmp
-if space usage > 80% then alert
+if space usage > 80% then unmonitor
 
 check filesystem varfs with path /var
-if space usage > 80% then alert
+if space usage > 80% then unmonitor
 
 check filesystem homefs with path /home
-if space usage > 80% then alert
+if space usage > 80% then unmonitor
 
 check filesystem ephemeralfs with path /ephemeral-zfs
-if space usage > 80% then alert
+if space usage > 80% then unmonitor

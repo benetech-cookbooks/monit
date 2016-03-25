@@ -1,8 +1,5 @@
 check host docker_<%= node.chef_environment %>-haproxy_pgsql with address localhost
-    group bookshare-<%= node.chef_environment %>-public
-    group bookshare-<%= node.chef_environment %>-catalog
-    group bookshare-<%= node.chef_environment %>-service
-    group bookshare-<%= node.chef_environment %>-admin
+    group db
     start   program = "/usr/bin/docker start <%= node.chef_environment %>-haproxy" with timeout 120 seconds
     stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-haproxy" with timeout 120 seconds
     if failed host localhost port 8000 protocol pgsql with timeout 20 seconds for 2 cycles then restart
