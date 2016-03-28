@@ -1,0 +1,9 @@
+check file <%= @check_name %> with path <%= @log_path %>
+  depends on docker_<%= @golden_key %>-pipeline2_http
+  depends on docker_<%= @golden_key %>-pgbouncer_pgsql
+  depends on docker_<%= @golden_key %>-postfix_proc
+  start   program = "/usr/bin/docker start <%= @container_name %>" with timeout 120 seconds
+  stop    program = "/usr/bin/docker stop <%= @container_name %>" with timeout 120 seconds
+  if match ".*java\.lang\.OutOfMemoryError.*" then restart
+  if match ".*No suitable driver found for.*" then restart
+  if 60 restarts within 60 cycles then unmonitor

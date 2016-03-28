@@ -1,5 +1,0 @@
-check file docker_<%= node.chef_environment %>-tomcat-<%= node.name.split('.')[0].gsub(/[^a-zA-Z]/, '') %>_log with path <%= `docker inspect #{node.chef_environment}-tomcat-#{node.name.split('.')[0].gsub(/[^a-zA-Z]/, '')} | grep LogPath | cut -d\\" -f4` %>
-start   program = "/usr/bin/docker start <%= node.chef_environment %>-tomcat-<%= node.name.split('.')[0].gsub(/[^a-zA-Z]/, '') %>" with timeout 120 seconds
-stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-tomcat-<%= node.name.split('.')[0].gsub(/[^a-zA-Z]/, '') %>" with timeout 120 seconds
-if match ".*java\.lang\.OutOfMemoryError.*" then restart
-if 10 restarts within 10 cycles then unmonitor

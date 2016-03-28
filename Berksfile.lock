@@ -4,4 +4,4 @@ DEPENDENCIES
     metadata: true
 
 GRAPH
-  monit (0.8.33)
+  monit (0.8.67)
