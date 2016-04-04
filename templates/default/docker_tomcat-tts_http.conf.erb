@@ -1,4 +1,6 @@
 check host docker_<%= node.chef_environment %>-tomcat-tts_http with address localhost
+    depends on docker_<%= node.chef_environment %>-pgbouncer_pgsql
+    depends on docker_<%= node.chef_environment %>-postfix_proc
     start   program = "/usr/bin/docker start <%= node.environment %>-tomcat-tts" with timeout 120 seconds
     stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-tomcat-tts" with timeout 120 seconds
     if failed host localhost port 8080 protocol HTTP request "/smoke" with timeout 20 seconds for 3 cycles then restart

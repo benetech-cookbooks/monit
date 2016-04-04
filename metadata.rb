@@ -4,7 +4,7 @@ maintainer_email "rone@benetech.org"
 license          "MIT"
 description      "Configures monit.  Originally based off the 37 Signals Cookbook."
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.8.67"
+version          "0.8.69"
 
 
 attribute 'monit/notify_email', 
