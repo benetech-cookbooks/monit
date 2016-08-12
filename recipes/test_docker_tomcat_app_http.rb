@@ -1,7 +1,7 @@
 include_recipe "monit"
 
 app_class_webapps = node['bookshare']['tomcat'].keys
-httpd_config = node['bookshare']['httpd']
+httpd_config = node['bookshare']['httpd']['app_class']
 
 vars = {
     :app_class_webapps => app_class_webapps,

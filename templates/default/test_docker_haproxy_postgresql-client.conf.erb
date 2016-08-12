@@ -1,0 +1,6 @@
+check program docker_<%= node.chef_environment %>-haproxy_postgresql-client path "/usr/bin/psql --host localhost --port 8000 --command 'SELECT 1;' --quiet bksdb" timeout 30 seconds
+    group db
+    start   program = "/usr/bin/docker start <%= node.chef_environment %>-haproxy" with timeout 60 seconds
+    stop    program = "/usr/bin/docker stop <%= node.chef_environment %>-haproxy" with timeout 60 seconds
+    if status != 0 for 2 cycles then restart
+    if 60 restarts within 60 cycles then unmonitor
